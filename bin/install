@@ -29,9 +29,24 @@ function install_highlight() {
 }
 
 function install_fonts() {
-  echo "+ ensuring RobotoMono fonts are installed"
+  echo "+ Installing the RobotoMono font..."
+  echo "  Font Book is going to pop open in 3 seconds, don't be surprised!"
+  echo
+  echo "Click $(tput setaf 2)Install Font$(tput sgr0) when the dialog pops up!"
+  echo
+  echo -n "Opening"
+
+  echo -n "."
+  sleep 1
+  echo -n "."
+  sleep 1
+  echo "."
+  sleep 1
+
   mkdir -p ~/Library/Fonts
-  cp $ROOT_DIR/fonts/RobotoMono/*.ttf ~/Library/Fonts
+  open -a "Font Book" $ROOT_DIR/fonts/RobotoMono/*.ttf
+
+  echo
 }
 
 install_highlight
