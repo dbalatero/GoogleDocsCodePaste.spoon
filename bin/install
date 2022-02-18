@@ -23,6 +23,8 @@ function install_highlight() {
     echo
 
     brew install highlight
+
+    echo
   fi
 }
 
@@ -33,3 +35,5 @@ function install_fonts() {
 
 install_highlight
 install_fonts
+
+echo "😸 Done!"

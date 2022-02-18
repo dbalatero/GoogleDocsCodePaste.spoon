@@ -6,7 +6,9 @@ This plugin lets you paste a code snippet from your macOS clipboard to Google Do
 
 ## Installation
 
-First, clone the repo:
+**Pre-requisite:** Ensure you have [Hammerspoon](https://www.hammerspoon.org) installed.
+
+Clone the repo:
 
 ```
 mkdir -p ~/.hammerspoon/Spoons
@@ -14,11 +16,28 @@ git clone git@github.com:dbalatero/GoogleDocsCodePaste.spoon.git \
   ~/.hammerspoon/Spoons/GoogleDocsCodePaste.spoon
 ```
 
-Second, run the install script to ensure you have all the right dependencies:
+Run the install script to ensure you have all the right dependencies:
 
 ```
 ~/.hammerspoon/Spoons/GoogleDocsCodePaste.spoon/bin/install
 ```
+
+Finally, add a snippet of code to your `~/.hammerspoon/init.lua`:
+
+```lua
+local docs = require('GoogleDocsCodePaste')
+
+-- Bind this to whatever mods + key you want:
+hs.hotkey.bind({'cmd', 'ctrl', 'alt'}, 'v', docs.pasteToGoogleDocs)
+```
+
+## Usage
+
+1. Copy a block of code into your clipboard.
+1. Switch to your Google Doc.
+1. Hit the `hotkey` you bound in the **Installation** section.
+1. Select the language from the popup chooser.
+1. It will paste a code block into your doc!
 
 ## Contributing
 
