@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # vim: set ft=sh
 
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd)"
+
 function command_exists() {
   local name=$1
 
@@ -15,7 +17,7 @@ fi
 
 function install_highlight() {
   if command_exists "highlight"; then
-    echo "+ highlight already installed"
+    echo "+ highlight is already installed"
   else
     echo "+ installing highlight for syntax highlighting support..."
     echo
@@ -24,4 +26,10 @@ function install_highlight() {
   fi
 }
 
+function install_fonts() {
+  echo "+ ensuring RobotoMono fonts are installed"
+  cp $ROOT_DIR/fonts/RobotoMono/*.ttf ~/Library/Fonts
+}
+
 install_highlight
+install_fonts
