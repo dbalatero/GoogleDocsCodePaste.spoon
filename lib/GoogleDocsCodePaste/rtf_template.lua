@@ -62,7 +62,7 @@ local function generateHighlightedCode(code, language)
   io.write(code)
   io.close(file)
 
-  local codeRtf = hs.execute("cat /tmp/code.txt | /usr/local/bin/highlight --no-trailing-nl -O rtf --font 'Roboto Mono' --font-size 16 --syntax " .. language .. " -s 'solarized-light'")
+  local codeRtf = hs.execute("cat /tmp/code.txt | highlight --no-trailing-nl -O rtf --font 'Roboto Mono' --font-size 16 --syntax " .. language .. " -s 'solarized-light'", true)
   hs.execute("rm /tmp/code.txt")
 
   return codeRtf
