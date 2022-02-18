@@ -30,6 +30,7 @@ function install_highlight() {
 
 function install_fonts() {
   echo "+ ensuring RobotoMono fonts are installed"
+  mkdir -p ~/Library/Fonts
   cp $ROOT_DIR/fonts/RobotoMono/*.ttf ~/Library/Fonts
 }
 
