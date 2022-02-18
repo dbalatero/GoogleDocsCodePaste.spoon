@@ -2,7 +2,7 @@
 
 This plugin lets you paste a code snippet from your macOS clipboard to Google Docs. The snippet will be pasted as a 2x1 table with line numbers and syntax highlighting.
 
-<img width="768" alt="image" src="https://user-images.githubusercontent.com/59429/154707685-3d0469e1-b741-4276-8fdb-06c063429820.png" />
+<img width="709" alt="image" src="https://user-images.githubusercontent.com/59429/154708376-b686c02e-d70b-41d3-8699-8bf26dcb6f65.png" />
 
 ## Installation
 
