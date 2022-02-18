@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# vim: set ft=sh
+
+function command_exists() {
+  local name=$1
+
+  command -v "$name" >/dev/null 2>&1
+}
+
+if ! command_exists "brew"; then
+  echo "ERROR: This installer requires homebrew to be installed."
+  echo "Please visit https://brew.sh to install it."
+  exit 1
+fi
+
+function install_highlight() {
+  if command_exists "highlight"; then
+    echo "+ highlight already installed"
+  else
+    echo "+ installing highlight for syntax highlighting support..."
+    echo
+
+    brew install highlight
+  fi
+}
+
+install_highlight
