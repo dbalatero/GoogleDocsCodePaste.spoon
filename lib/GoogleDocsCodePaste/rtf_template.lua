@@ -1,3 +1,5 @@
+local utils = require("GoogleDocsCodePaste.utils")
+
 local header = [[
 {\rtf1\ansi\ansicpg1252\cocoartf2636
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 RobotoMono-Regular;}
@@ -55,6 +57,21 @@ local function generateLineNumbers(code)
   return table.concat(numbers, "\n\n")
 end
 
+local function getHighlightPath()
+  possibilities = {
+    "/usr/local/bin/highlight",
+    "/opt/homebrew/bin/highlight",
+  }
+
+  for _, path in ipairs(possibilities) do
+    if utils.fileExists(path) then
+      return path
+    end
+  end
+
+  return nil
+end
+
 local function generateHighlightedCode(code, language)
   -- Write to tmp file
   local file = io.open("/tmp/code.txt", "w+")
@@ -68,16 +85,20 @@ local function generateHighlightedCode(code, language)
       "-O rtf",
       "--font 'Roboto Mono'",
       "--font-size 16",
-      "--syntax '" .. language .. "'",
+      "--syntax " .. language,
       "-s 'solarized-light'"
     },
     " "
   )
 
-  local codeRtf = hs.execute(
-    "cat /tmp/code.txt | /usr/local/bin/highlight " .. args,
-    true -- use the user's ENV to find the PATH to highlight
-  )
+  highlightBinary = getHighlightPath()
+
+  if not highlightBinary then
+    return "Missing the highlight package from homebrew. Did you forget to run bin/install?"
+  end
+
+  local command = "cat /tmp/code.txt | " .. highlightBinary .. " " .. args
+  local codeRtf = hs.execute(command)
 
   hs.execute("rm /tmp/code.txt")
 
