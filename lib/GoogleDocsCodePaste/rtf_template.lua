@@ -76,6 +76,58 @@ local function generateRtf(code, language)
     footer
 end
 
+local function generateLineNumbersPre(code)
+  local lines = hs.fnutils.split(code, "\n", nil, true)
+  local count = #lines
+
+  local numbers = {}
+
+  for i=1,count do
+    local value = tostring(i)
+    table.insert(numbers, value)
+  end
+
+  return table.concat(numbers, "\n")
+end
+
+
+local function generateHtml(code, language)
+  -- Write to tmp file
+  local file = io.open("/tmp/code.txt", "w+")
+  io.output(file)
+  io.write(code)
+  io.close(file)
+
+  local codeHtml = hs.execute("cat /tmp/code.txt | /usr/local/bin/highlight -f --no-trailing-nl -O html --inline-css --font 'Roboto Mono' --font-size 10 --syntax " .. language .. " -s 'github'")
+  hs.execute("rm /tmp/code.txt")
+
+  local html = [[
+<table cellspacing="0" style="border: 1px solid #c1c7cd;">
+  <tr>
+    <td valign="top" style="background-color:#fff5ee; padding-left: 4px; border: 0; text-align: right;">
+<pre style="color:#657b83; font-size:10pt; font-family:'Roboto Mono',monospace;white-space: pre-wrap;">]]
+
+  html = html .. generateLineNumbersPre(code)
+  html = html .. [[
+</pre>
+    </td>
+    <td valign="top" style="background-color:#fff5ee; padding-left: 24px;">
+<pre style="color:#000000; background-color:#fff5ee; font-size:10pt; font-family:'Roboto Mono',monospace;white-space: pre-wrap;">]]
+
+  html = html .. codeHtml
+
+  html = html .. [[</pre>
+    </td>
+  </tr>
+</table>
+  ]]
+
+  p(html)
+
+  return html
+end
+
 return {
   generateRtf = generateRtf,
+  generateHtml = generateHtml,
 }

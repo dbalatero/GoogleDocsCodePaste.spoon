@@ -18,8 +18,8 @@ local function firePaste(language)
   local code = utils.trim(hs.pasteboard.getContents())
 
   -- Convert to styled text
-  local rtf = template.generateRtf(code, language)
-  local newClipboardContents = hs.styledtext.getStyledTextFromData(rtf, 'rtf')
+  local html = template.generateHtml(code, language)
+  local newClipboardContents = hs.styledtext.getStyledTextFromData(html, 'html')
 
   local changeCount = hs.pasteboard.changeCount()
 
