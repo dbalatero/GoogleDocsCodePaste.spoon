@@ -33,8 +33,16 @@ local function chooseLanguage(onLanguage)
       language = "jsx",
     },
     {
+      text = "Kotlin",
+      language = "kotlin",
+    },
+    {
       text = "Lua",
       language = "lua",
+    },
+    {
+      text = "Objective C",
+      language = "objc",
     },
     {
       text = "Plain text (txt)",
